@@ -1,5 +1,8 @@
 ## Controls:
-W, Up or Space - Jump. Down - Crouch. Left or A/Right or D - Move Left/Right. L - Level toggle (debug/test feature, remove before completion.
+- W, Up or Space - Jump
+- Down - Crouch
+- Left or A/Right or D - Move Left/Right
+- L - Level toggle (debug/test feature, remove before completion)
 
 ## Bugs
 - Infinite jump
