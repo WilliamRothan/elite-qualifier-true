@@ -315,7 +315,7 @@ while main == True:
 # - Custom sprites
 # - Larger levels
 # - More than just 2 levels
-# - Proper level start/end triggers.
+# - Proper level start/end triggers. Currently, the level switch is bound to "L".
 # - Invisible wall at the start of the level.
 # - Different enemy types, as well as repositioning enemies in between levels
 # - Invulnerability period after the player gets hit, in which their sprite (until a proper sprite is made) will change color. This will eventually be replaced by a stagger sprite.
