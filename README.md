@@ -12,6 +12,7 @@
 - Player has no i-frames when hit by an enemy, so their health gets melted really quickly.
 
 ## Things to add
+- HUD for player stats, points, whatever else
 - Custom sprites
 - Larger levels
 - More than just 2 levels
