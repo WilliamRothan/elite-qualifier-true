@@ -112,28 +112,28 @@ class Enemy(pygame.sprite.Sprite):
 
 
 class Platform(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, color):
-        super().__init__()
-        self.width = width
-        self.height = height
-        self.image = pygame.Surface([self.width, self.height])
-        self.image.fill(color)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
+  def __init__(self, x, y, width, height, color):
+    super().__init__()
+    self.width = width
+    self.height = height
+    self.image = pygame.Surface([self.width, self.height])
+    self.image.fill(color)
+    self.rect = self.image.get_rect()
+    self.rect.x = x
+    self.rect.y = y
 
 
 class Level():
-    @staticmethod
-    def ground(lvl, x, y, width, height):
-        ground = Platform(x, y, width, height, PLATFORM_BLACK)
+  @staticmethod
+  def ground(lvl, x, y, width, height):
+    ground = Platform(x, y, width, height, PLATFORM_BLACK)
 
-        ground_list = pygame.sprite.Group()
-        if lvl == 1:
-            ground = Platform(x, y, width, height, PLATFORM_BLACK)
-            ground_list.add(ground)
+    ground_list = pygame.sprite.Group()
+    if lvl == 1:
+      ground = Platform(x, y, width, height, PLATFORM_BLACK)
+      ground_list.add(ground)
 
-        return ground_list
+    return ground_list
 
 
 """
@@ -170,7 +170,7 @@ clock = pygame.time.Clock()
 # Player position
 player = Player()
 player.rect.x = 150
-player.rect.y = 0
+player.rect.y = 570
 player_list = pygame.sprite.Group()
 player_list.add(player)
 
@@ -215,94 +215,94 @@ main = True
 Main Loop
 """
 while main == True:
-    world.fill(BLUE)
-    player.update()
-    player_list.draw(world)
-    enemy_list.draw(world)
-    platform_list.draw(world)
-    quicksand_list.draw(world)
-    ground_list.draw(world)
-    for e in enemy_list:
-        e.move()
-    pygame.display.flip()
-    clock.tick(fps)
+  world.fill(BLUE)
+  player.update()
+  player_list.draw(world)
+  enemy_list.draw(world)
+  platform_list.draw(world)
+  quicksand_list.draw(world)
+  ground_list.draw(world)
+  for e in enemy_list:
+      e.move()
+  pygame.display.flip()
+  clock.tick(fps)
 
-    player.gravity()
+  player.gravity()
 
-    if player.rect.x >= forwardx:
-        scroll = player.rect.x - forwardx
-        player.rect.x = forwardx
+  if player.rect.x >= forwardx:
+    scroll = player.rect.x - forwardx
+    player.rect.x = forwardx
 
-        for platform in platform_list:
-            platform.rect.x -= scroll
+    for platform in platform_list:
+      platform.rect.x -= scroll
 
-        for quicksand in quicksand_list:
-            quicksand.rect.x -= scroll
+    for quicksand in quicksand_list:
+      quicksand.rect.x -= scroll
 
-        for enemy in enemy_list:
-            enemy.rect.x -= scroll
-    elif player.rect.x <= backwardx:
-        scroll = backwardx - player.rect.x
-        player.rect.x = backwardx
+    for enemy in enemy_list:
+      enemy.rect.x -= scroll
+  elif player.rect.x <= backwardx:
+    scroll = backwardx - player.rect.x
+    player.rect.x = backwardx
 
-        for platform in platform_list:
-            platform.rect.x += scroll
+    for platform in platform_list:
+      platform.rect.x += scroll
 
-        for quicksand in quicksand_list:
-            quicksand.rect.x += scroll
+    for quicksand in quicksand_list:
+      quicksand.rect.x += scroll
 
-        for enemy in enemy_list:
-            enemy.rect.x += scroll
+    for enemy in enemy_list:
+      enemy.rect.x += scroll
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            main = False
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      pygame.quit()
+      main = False
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT or event.key == ord('a'):
-                player.control(-steps, 0)
-            if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                player.control(steps, 0)
-            if event.key == pygame.K_UP or event.key == ord('w') or event.key == pygame.K_SPACE:
-                player.jump()
-            if event.key == pygame.K_DOWN or event.key == ord('s'):
-                player.height = 30
+    if event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_LEFT or event.key == ord('a'):
+        player.control(-steps, 0)
+      if event.key == pygame.K_RIGHT or event.key == ord('d'):
+        player.control(steps, 0)
+      if event.key == pygame.K_UP or event.key == ord('w') or event.key == pygame.K_SPACE:
+        player.jump()
+      if event.key == pygame.K_DOWN or event.key == ord('s'):
+        player.height = 30
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == ord('a'):
-                player.control(steps, 0)
-            if event.key == pygame.K_RIGHT or event.key == ord('d'):
-                player.control(-steps, 0)
-            if event.key == pygame.K_DOWN or event.key == ord('s'):
-                player.height = 60
-            if event.key == ord('l') and lvl <= 2:
-              lvl += 1
-              player.rect.x = 150
-              player.rect.y = 0
-            if event.key == ord('q'):
-                pygame.quit()
-                main = False
-    
-    if lvl == 1:
-      platform_list.add(platform1_1)
-      platform_list.add(platform1_2)
-      platform_list.add(platform1_3)
-      quicksand_list.add(quicksand1_1)
-      enemy_list.add(enemy1_1)
-      enemy_list.add(enemy1_2)
-    
-    if lvl ==2:
-      platform_list.remove(platform1_1)
-      platform_list.remove(platform1_2)
-      platform_list.remove(platform1_3)
-      quicksand_list.remove(quicksand1_1)
-      enemy_list.remove(enemy1_1)
-      enemy_list.remove(enemy1_2)
+    if event.type == pygame.KEYUP:
+      if event.key == pygame.K_LEFT or event.key == ord('a'):
+        player.control(steps, 0)
+      if event.key == pygame.K_RIGHT or event.key == ord('d'):
+        player.control(-steps, 0)
+      if event.key == pygame.K_DOWN or event.key == ord('s'):
+        player.height = 60
+      if event.key == ord('l') and lvl <= 2:
+        lvl += 1
+        player.rect.x = 150
+        player.rect.y = 570
+      if event.key == ord('q'):
+          pygame.quit()
+          main = False
+  
+  if lvl == 1:
+    platform_list.add(platform1_1)
+    platform_list.add(platform1_2)
+    platform_list.add(platform1_3)
+    quicksand_list.add(quicksand1_1)
+    enemy_list.add(enemy1_1)
+    enemy_list.add(enemy1_2)
+  
+  if lvl ==2:
+    platform_list.remove(platform1_1)
+    platform_list.remove(platform1_2)
+    platform_list.remove(platform1_3)
+    quicksand_list.remove(quicksand1_1)
+    enemy_list.remove(enemy1_1)
+    enemy_list.remove(enemy1_2)
 
-      quicksand_list.add(quicksand2_1)
-      quicksand_list.add(quicksand2_2)
-      quicksand_list.add(quicksand2_3)
+    quicksand_list.add(quicksand2_1)
+    quicksand_list.add(quicksand2_2)
+    quicksand_list.add(quicksand2_3)
 
 # Bugs
 # - Infinite jump
@@ -312,6 +312,7 @@ while main == True:
 # - Player has no i-frames when hit by an enemy, so their health gets melted really quickly.
 
 # Things to add
+# - HUD for player stats, points, whatever else.
 # - Custom sprites
 # - Larger levels
 # - More than just 2 levels
